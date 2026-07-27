@@ -1,11 +1,13 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from config.settings import Settings
+from config.routes import Routes
 
 class SeleniumDynamicLoadingPage:
     def __init__(self, driver):
         self.driver = driver
-        self.url = "https://the-internet.herokuapp.com/dynamic_loading/1"
+        self.url = Settings.BASE_URL + Routes.DYNAMIC_LOADING.value
         self.start_button = (By.CSS_SELECTOR, "#start button")
         self.finish_text = (By.CSS_SELECTOR, "#finish h4")
 
@@ -15,7 +17,7 @@ class SeleniumDynamicLoadingPage:
     def click_start(self):
         self.driver.find_element(*self.start_button).click()
 
-    def get_finish_text(self, timeout=10):
+    def get_finish_text(self, timeout=Settings.DEFAULT_TIMEOUT):
         # Using explicit waits to demonstrate professional synchronization skills
         element = WebDriverWait(self.driver, timeout).until(
             EC.visibility_of_element_located(self.finish_text)
