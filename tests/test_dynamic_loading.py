@@ -8,6 +8,7 @@ def driver():
     yield driver
     driver.quit()
 
+@pytest.mark.element_loads_dynamically
 def test_element_loads_dynamically(driver):
     dynamic_page = SeleniumDynamicLoadingPage(driver)
     dynamic_page.navigate()
